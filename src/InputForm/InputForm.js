@@ -1,143 +1,215 @@
 import React, { Component } from "react";
+import DropdownFilter from "../DropDownFilter/DropDownFilter";
+import DateInput from "../DateInput/DateInput";
 
 export default class InputForm extends Component {
   state = {
     clinician: "",
     office: "",
     name: "",
+    serviceDate: "",
+    eobDate: "",
+    memberId: "",
+    claimNumber: "",
+    payer: "",
+    notes: "",
+    denial: "",
+    resolved: "false",
+    followUpDate: "",
+    balance: "",
+  };
+
+  setFormData = (event) => {
+    this.setState({ ...this.state, [event.target.name]: event.target.value });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("submitted");
   };
 
   render() {
+    const dropdownValues = {
+      clinician: {
+        id: "clinician",
+        label: "Select a Clinician",
+        name: "clinician",
+        options: ["Jim", "Bob", "Joe", "Jen"],
+      },
+      office: {
+        id: "office",
+        label: "Select an Office",
+        name: "office",
+        options: ["CHC", "FFC"],
+      },
+      payer: {
+        id: "payer",
+        label: "Select Payer",
+        name: "payer",
+        options: ["Blue Cross", "Humana", "Aetna", "United Health Care"],
+      },
+      denial: {
+        id: "denial",
+        label: "Reason for Denial",
+        name: "denial",
+        options: [
+          "Patient Responsibility/Deductible",
+          "Coverage Terminated",
+          "Invalid Prefix",
+          "Invalid Modifier",
+        ],
+      },
+    };
+
+    const dateValues = {
+      service: {
+        id: "serviceDate",
+        label: "Date of Service",
+        name: "serviceDate",
+      },
+      eob: {
+        id: "eobDate",
+        label: "EOB Date",
+        name: "eobDate",
+      },
+      followUpDate: {
+        id: "followUpDate",
+        label: "Follow Up Date",
+        name: "followUpDate",
+      },
+    };
+
     return (
       <div>
+        <div>Input Form</div>
         <form>
+          <DropdownFilter
+            id={dropdownValues.clinician.options}
+            label={dropdownValues.clinician.label}
+            options={dropdownValues.clinician.options}
+            name={dropdownValues.clinician.name}
+            value={this.state.clinician}
+            onChange={this.setFormData}
+            aria="clinician"
+          />
+          <DropdownFilter
+            id={dropdownValues.office.options}
+            label={dropdownValues.office.label}
+            options={dropdownValues.office.options}
+            name={dropdownValues.office.name}
+            value={this.state.office}
+            onChange={this.setFormData}
+            aria="office"
+          />
           <div>
-            <label htmlFor="clinician">Choose a clinician:</label>
-
-            <select name="clinician" id=" clinician">
-              <option value="jim">Jim</option>
-              <option value="bob">Bob</option>
-              <option value="joe">Joe</option>
-              <option value="jen">Jen</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="office">Choose an Office:</label>
-
-            <select name="office" id="office">
-              <option value="caring hearts">Caring Hearts</option>
-              <option value="option b">Option B</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="name">Full name:</label>
-            <input type="text" id="name" name="name"></input>
-          </div>
-          <div>
-            <label htmlFor="member-id">Member ID:</label>
+            <label htmlFor="name">Full name: </label>
             <input
               type="text"
-              id="member-id"
-              name="member-id"
+              id="name"
+              name="name"
+              onChange={this.setFormData}
+              value={this.state.name}
+            ></input>
+          </div>
+          <div>
+            <label htmlFor="member-id">Member ID: </label>
+            <input
+              type="text"
+              id="memberId"
+              name="memberId"
               value={this.state.memberId}
-              onChange={this.setMemberId}
+              onChange={this.setFormData}
             />
           </div>
-          <div className="detail-input-format">
-            <label htmlFor="service-date"> Date of Service: </label>
-            <input
-              type="date"
-              id="service-date"
-              name="service-date"
-              className="detail-input date-input"
-              value={this.state.serviceDate}
-              onChange={this.setServiceDate}
-            />
-          </div>
-          <div className="detail-input-format">
-            <label htmlFor="eob-date"> EOB Date: </label>
-            <input
-              type="date"
-              id="eob-date"
-              name="eob-date"
-              className="detail-input date-input"
-              value={this.state.eobDate}
-              onChange={this.setEobDate}
-            />
-          </div>
+          <DateInput
+            id={dateValues.service.id}
+            label={dateValues.service.label}
+            value={this.state.serviceDate}
+            name={dateValues.service.name}
+            onChange={this.setFormData}
+          />
+          <DateInput
+            id={dateValues.eob.id}
+            label={dateValues.eob.label}
+            value={this.state.eobDate}
+            name={dateValues.eob.name}
+            onChange={this.setFormData}
+          />
+          <DropdownFilter
+            id={dropdownValues.payer.options}
+            label={dropdownValues.payer.label}
+            options={dropdownValues.payer.options}
+            name={dropdownValues.payer.name}
+            value={this.state.payer}
+            onChange={this.setFormData}
+            aria="payer"
+          />
           <div>
-            <label htmlFor="payer">Choose a Payer:</label>
-
-            <select name="payer" id="payer">
-              <option value="blue cross">Blue Cross</option>
-              <option value="humana">Humana</option>
-              <option value="aetna">Aetna</option>
-              <option value="united health care">United Health Care</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="claim-number">Claim number:</label>
+            <label htmlFor="claim-number">Claim number: </label>
             <input
               type="text"
               id="claim-number"
-              name="claim-number"
+              name="claimNumber"
               value={this.state.claimNumber}
-              onChange={this.setClaimNumber}
+              onChange={this.setFormData}
             />
           </div>
           <div>
-            <label htmlFor="notes">Notes:</label>
+            <label htmlFor="notes">Notes: </label>
             <textarea
               id="notes"
               name="notes"
               value={this.state.notes}
-              onChange={this.setNotes}
+              onChange={this.setFormData}
             />
           </div>
-          <div>
-            <label htmlFor="denial">Reason for Denial:</label>
-
-            <select name="denial" id="denial">
-              <option value="patient responsibility deductible">
-                Patient Responsibility/Deductible
-              </option>
-              <option value="coverage terminated">Coverage Terminated</option>
-              <option value="invalid prefix">Invalid Prefix</option>
-              <option value="invalid modifier">Invalid Modifier</option>
-            </select>
-          </div>
+          <DropdownFilter
+            id={dropdownValues.denial.options}
+            label={dropdownValues.denial.label}
+            options={dropdownValues.denial.options}
+            name={dropdownValues.denial.name}
+            value={this.state.denial}
+            onChange={this.setFormData}
+            aria="denial"
+          />
           <div>
             <label htmlFor="resolved">Resolved:</label>
             <input
               type="checkbox"
               id="resolved"
               name="resolved"
-              onChange={this.setFollowUpDate}
-              value={this.state.resolved}
+              onChange={this.setFormData}
+              value={
+                this.state.resolved === ""
+                  ? true
+                  : this.state.resolved === "true"
+                  ? false
+                  : true
+              }
             />
           </div>
-          <div className="detail-input-format">
-            <label htmlFor="follow-up"> Follow Up Date: </label>
-            <input
-              type="date"
-              id="follow-up-date"
-              name="follow-up-date"
-              className="detail-input date-input"
-              value={this.state.followUpDate}
-              onChange={this.setFollowUpDate}
-            />
-          </div>
+          <DateInput
+            id={dateValues.followUpDate.id}
+            label={dateValues.followUpDate.label}
+            value={this.state.followUpDate}
+            name={dateValues.followUpDate.name}
+            onChange={this.setFormData}
+          />
           <div>
-            <label htmlFor="balance">Remaining Balance:</label>
+            <label htmlFor="balance">Remaining Balance: </label>
             <input
               type="text"
               id="balance"
               name="balance"
               value={this.state.balance}
-              onChange={this.setBalance}
+              onChange={this.setFormData}
             />
           </div>
-          <input type="submit" value="Submit"></input>
+          <input
+            type="submit"
+            value="Submit"
+            onClick={this.handleSubmit}
+          ></input>
         </form>
       </div>
     );
