@@ -1,12 +1,20 @@
 import React from "react";
 import InputForm from "./InputForm/InputForm";
+import NavBar from "./NavBar/NavBar";
+import { Route } from "react-router-dom";
+import SearchPage from "./SearchPage/SearchPage";
 
 function App() {
   return (
-    <main className="App">
-      <h1>Caring Heart App</h1>
-      <InputForm />
-    </main>
+    <>
+      <header>
+        <NavBar />
+      </header>
+      <main className="App">
+        <Route exact path="/" component={InputForm} />
+        <Route exact path="/search" component={SearchPage} />
+      </main>
+    </>
   );
 }
 
