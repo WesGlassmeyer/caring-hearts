@@ -17,6 +17,7 @@ export default class InputForm extends Component {
     resolved: "false",
     followUpDate: "",
     balance: "",
+    payPeriod: "",
   };
 
   setFormData = (event) => {
@@ -77,12 +78,24 @@ export default class InputForm extends Component {
         label: "Follow Up Date",
         name: "followUpDate",
       },
+      payPeriod: {
+        id: "payPeriod",
+        label: "Pay Period",
+        name: "payPeriod",
+      },
     };
 
     return (
       <div>
         <div>Input Form</div>
         <form>
+          <DateInput
+            id={dateValues.payPeriod.id}
+            label={dateValues.payPeriod.label}
+            value={this.state.payPeriod}
+            name={dateValues.payPeriod.name}
+            onChange={this.setFormData}
+          />
           <DropdownFilter
             id={dropdownValues.clinician.options}
             label={dropdownValues.clinician.label}
