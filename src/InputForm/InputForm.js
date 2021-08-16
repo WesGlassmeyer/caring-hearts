@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import DropdownFilter from "../DropDownFilter/DropDownFilter";
 import DateInput from "../DateInput/DateInput";
+import dummyData from "../dummyData";
 
 export default class InputForm extends Component {
   state = {
@@ -30,60 +31,9 @@ export default class InputForm extends Component {
   };
 
   render() {
-    const dropdownValues = {
-      clinician: {
-        id: "clinician",
-        label: "Select a Clinician",
-        name: "clinician",
-        options: ["Jim", "Bob", "Joe", "Jen"],
-      },
-      office: {
-        id: "office",
-        label: "Select an Office",
-        name: "office",
-        options: ["CHC", "FFC"],
-      },
-      payer: {
-        id: "payer",
-        label: "Select Payer",
-        name: "payer",
-        options: ["Blue Cross", "Humana", "Aetna", "United Health Care"],
-      },
-      denial: {
-        id: "denial",
-        label: "Reason for Denial",
-        name: "denial",
-        options: [
-          "Patient Responsibility/Deductible",
-          "Coverage Terminated",
-          "Invalid Prefix",
-          "Invalid Modifier",
-        ],
-      },
-    };
+    const dropdownValues = dummyData;
 
-    const dateValues = {
-      service: {
-        id: "serviceDate",
-        label: "Date of Service",
-        name: "serviceDate",
-      },
-      eob: {
-        id: "eobDate",
-        label: "EOB Date",
-        name: "eobDate",
-      },
-      followUpDate: {
-        id: "followUpDate",
-        label: "Follow Up Date",
-        name: "followUpDate",
-      },
-      payPeriod: {
-        id: "payPeriod",
-        label: "Pay Period",
-        name: "payPeriod",
-      },
-    };
+    const dateValues = dummyData;
 
     return (
       <div>
@@ -115,7 +65,7 @@ export default class InputForm extends Component {
             aria="office"
           />
           <div>
-            <label htmlFor="name">Full name: </label>
+            <label htmlFor="name">Client Name: </label>
             <input
               type="text"
               id="name"
